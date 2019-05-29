@@ -35,12 +35,6 @@ defmodule I18n.Translator do
   end
 
   def deftranslations(locale, current_path, opts) do
-    IO.puts(
-      "arguments locale: #{inspect(locale)}, current_path: #{inspect(current_path)}, opts: #{
-        inspect(opts)
-      }"
-    )
-
     for {key, val} <- opts do
       path = append_path(current_path, key)
 
@@ -60,10 +54,9 @@ defmodule I18n.Translator do
   defp append_path(current_path, key), do: "#{current_path}.#{key}"
 
   defp interpolate(string) do
-    IO.puts("Interolate String : #{inspect(string)}")
-
     ~r/(?<head>)%{[^}]+}(?<tail>)/
     |> Regex.split(string, on: [:head, :tail])
+    |> IO.inspect()
     |> Enum.reduce("", fn
       <<"%{" <> rest>>, acc ->
         key = String.to_atom(String.rstrip(rest, ?}))
