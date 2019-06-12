@@ -28,7 +28,8 @@ defmodule Protocols.MixProject do
       {:ecto_sql, "~> 3.1"},
       {:postgrex, "~> 0.14.3"},
       {:jason, "~> 1.1"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      {:metaprogramming, in_umbrella: true}
     ]
   end
 end
