@@ -47,7 +47,7 @@ defimpl Protocol.Format, for: Float do
   import Protocol.Utils
 
   def format(data, options \\ []) do
-    "#{:erlang.float_to_binary(data, [:compact, decimals: 15])}" <>
+    colorize("#{:erlang.float_to_binary(data, [:compact, decimals: 15])}", data, options) <>
       new_line()
   end
 end
@@ -58,7 +58,7 @@ defimpl Protocol.Format, for: Atom do
   def format(data, options \\ [])
 
   def format(data, options) when data in [true, false, nil] do
-    Atom.to_string(data) <> new_line()
+    colorize(Atom.to_string(data), data, options) <> new_line()
   end
 
   def format(data, options) do
