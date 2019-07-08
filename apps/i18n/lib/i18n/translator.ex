@@ -13,7 +13,7 @@ defmodule I18n.Translator do
 
   defmacro locale(name, mappings) do
     quote bind_quoted: [name: name, mappings: mappings] do
-      IO.inspect(mappings)
+      IO.puts("============== #{inspect(mappings)}")
       @locales {name, mappings}
     end
   end
