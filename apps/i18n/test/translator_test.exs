@@ -42,4 +42,27 @@ defmodule TranslatorTest do
   test "it handles translations at root level" do
     assert I18nTest.t("en", "foo") == "bar"
   end
+
+  test "it allows multiple locales to be registered" do
+    assert I18n.t("fr", "flash.notice.hello", first: "Jaclyn", last: "M") ==
+             "salut Jaclyn M!"
+  end
+
+  test "it iterpolates bindings" do
+    assert I18n.t("en", "flash.notice.hello", first: "Jason", last: "S") ==
+             "hello Jason S!"
+  end
+
+  test "t/3 raises KeyError when bindings not provided" do
+    assert_raise KeyError, fn -> I18n.t("en", "flash.notice.hello") end
+  end
+
+  test "t/3 returns {:error, :no_translation} when translation is missing" do
+    assert I18n.t("en", "flash.not_exists") == {:error, :no_translation}
+  end
+
+  test "converts interpolation values to string" do
+    assert I18n.t("fr", "flash.notice.hello", first: 123, last: 456) ==
+             "salut 123 456!"
+  end
 end
